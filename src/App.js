@@ -1,17 +1,27 @@
 import React, {Component} from 'react';
 import './App.css';
 import web3 from './web3';
+import bidding from './bidding';
 
 class App extends Component {
-  render(){
-    // window.ethereum.enable()
-    //   .then(web3.eth.getAccounts()
-    //     .then(console.log));
+  constructor(props){
+    super(props);
 
-    web3.eth.getAccounts().then(console.log);
-    
+    this.state = { organ: '' };
+  }
+
+  async componentDidMount(){
+    const organ = await bidding.methods.organ().call();
+
+    this.setState({ organ });
+  }
+
+  render(){   
   return (
-    <div>Olá, seu gay</div>
+    <div>
+      <h2>Pregão Eletrônico</h2>
+      <p>Esse pregão foi implementado por: {this.state.manager}</p>
+    </div>
   );
 }};
 export default App;
