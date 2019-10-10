@@ -1,8 +1,27 @@
 import web3 from './web3';
 
-const address = '0xCA35b7d915458EF540aDe6068dFe2F44E8fa733c';
+const address = '0x0abdaAD8D55D9751a3c6a27b973f19791D37BDb5';
 
 const abi = [
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "name",
+		"outputs": [
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
 	{
 		"constant": false,
 		"inputs": [
@@ -17,8 +36,8 @@ const abi = [
 		],
 		"name": "enter",
 		"outputs": [],
-		"payable": true,
-		"stateMutability": "payable",
+		"payable": false,
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -51,13 +70,28 @@ const abi = [
 	},
 	{
 		"constant": true,
-		"inputs": [],
-		"name": "lowestOffer",
+		"inputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "provider",
 		"outputs": [
 			{
-				"name": "minimum",
-				"type": "uint256"
-			},
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [],
+		"name": "pickWinner",
+		"outputs": [
 			{
 				"name": "addrWinner",
 				"type": "address"
@@ -68,17 +102,36 @@ const abi = [
 			}
 		],
 		"payable": false,
-		"stateMutability": "view",
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [],
+		"name": "lowestOffer",
+		"outputs": [
+			{
+				"name": "minimum",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
 		"constant": true,
-		"inputs": [],
-		"name": "getProviders",
+		"inputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "value",
 		"outputs": [
 			{
 				"name": "",
-				"type": "address[]"
+				"type": "uint256"
 			}
 		],
 		"payable": false,
