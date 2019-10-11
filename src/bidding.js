@@ -1,8 +1,8 @@
 import web3 from './web3';
 
-const address = '0x0abdaAD8D55D9751a3c6a27b973f19791D37BDb5';
+const address = '0xA85f8b98Bfd570C514d3129916009FE5eF6C7283';
 
-const abi = [
+const abi =[
 	{
 		"constant": true,
 		"inputs": [
@@ -30,7 +30,7 @@ const abi = [
 				"type": "string"
 			},
 			{
-				"name": "_value",
+				"name": "_valor",
 				"type": "uint256"
 			}
 		],
@@ -52,6 +52,20 @@ const abi = [
 		],
 		"payable": false,
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [],
+		"name": "addrWinner",
+		"outputs": [
+			{
+				"name": "addrWinner",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -88,14 +102,43 @@ const abi = [
 		"type": "function"
 	},
 	{
-		"constant": false,
+		"constant": true,
 		"inputs": [],
-		"name": "pickWinner",
+		"name": "minimum",
 		"outputs": [
 			{
-				"name": "addrWinner",
-				"type": "address"
-			},
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "valor",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [],
+		"name": "nameWinner",
+		"outputs": [
 			{
 				"name": "nameWinner",
 				"type": "string"
@@ -111,7 +154,7 @@ const abi = [
 		"name": "lowestOffer",
 		"outputs": [
 			{
-				"name": "minimum",
+				"name": "_minimum",
 				"type": "uint256"
 			}
 		],
@@ -121,17 +164,12 @@ const abi = [
 	},
 	{
 		"constant": true,
-		"inputs": [
-			{
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "value",
+		"inputs": [],
+		"name": "getProviders",
 		"outputs": [
 			{
 				"name": "",
-				"type": "uint256"
+				"type": "address[]"
 			}
 		],
 		"payable": false,
@@ -139,12 +177,7 @@ const abi = [
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"name": "_nameOrgan",
-				"type": "string"
-			}
-		],
+		"inputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "constructor"

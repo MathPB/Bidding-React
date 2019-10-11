@@ -9,16 +9,19 @@ class App extends Component {
     organName: '',
     message: '',
     name: '',
-    value:''
+    valor:'',
+    getProvider: [],
+    minimum:''
 
   };
 
   async componentDidMount(){
     const organ = await bidding.methods.organ().call();
     const nameOrgan = await bidding.methods.nameOrgan().call();
+    const getProvider = await bidding.methods.getProviders().call();
+    const minimum = await bidding.methods.minimum().call();
 
-
-    this.setState({ organ, nameOrgan});
+    this.setState({ organ, nameOrgan, getProvider, minimum});
   };
 
   onSubmit = async (event) =>{
@@ -26,12 +29,15 @@ class App extends Component {
 
     const accounts = await web3.eth.getAccounts();
 
-    this.setState({ message: 'Waiting transaction success...' });
+    this.setState({ message: 'Aguardando a aprovação da transação...' });
 
     await bidding.methods.enter(this.state.name, this.state.value).send({ from: accounts[0], gas: '1000000'});
 
-    this.setState({ message: 'You have been entered!' });
+    this.setState({ message: 'Proposta enviada com sucesso!!' });
+
+    await bidding.methods.lowestOffer().send({ from: accounts[0], gas: '1000000' });
   };
+
 
   render(){   
   return (
@@ -39,7 +45,9 @@ class App extends Component {
       <h2>Pregão Eletrônico</h2>
       <p>Orgão licitante: <b>{this.state.nameOrgan}</b></p>
       <p>Representado pelo endereço: <b>"{this.state.organ}"</b></p>
+      <p>Participantes: <b>{this.state.getProvider.length}</b></p>
       <hr/>
+      <p>Menor proposta:{this.state.minimum}</p>
       <form onSubmit={this.onSubmit}>
         <h2>Proposta</h2>
         <div>
@@ -51,13 +59,15 @@ class App extends Component {
           />
         </div>
         <div>
+          <br/>
           <label>Valor da proposta:</label>
           <br/>
           <input
-            value = {this.state.value}
+            valor = {this.state.value}
             onChange={event => this.setState({ value: event.target.value })}
           />
         </div>
+        <br/> 
         <button>Enter</button>
       </form>
       <h1>{this.state.message}</h1>
