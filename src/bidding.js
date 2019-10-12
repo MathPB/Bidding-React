@@ -1,8 +1,8 @@
 import web3 from './web3';
 
-const address = '0xA85f8b98Bfd570C514d3129916009FE5eF6C7283';
+const address = '0xC4dF3ff2Bd57B3D70a2286fE22f8bf69716e55C0';
 
-const abi =[
+const abi = [
 	{
 		"constant": true,
 		"inputs": [
@@ -60,7 +60,7 @@ const abi =[
 		"name": "addrWinner",
 		"outputs": [
 			{
-				"name": "addrWinner",
+				"name": "_addrWinner",
 				"type": "address"
 			}
 		],
@@ -140,12 +140,26 @@ const abi =[
 		"name": "nameWinner",
 		"outputs": [
 			{
-				"name": "nameWinner",
+				"name": "_nameWinner",
 				"type": "string"
 			}
 		],
 		"payable": false,
 		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "vencedor",
+		"outputs": [
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -170,6 +184,20 @@ const abi =[
 			{
 				"name": "",
 				"type": "address[]"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "endereco",
+		"outputs": [
+			{
+				"name": "",
+				"type": "address"
 			}
 		],
 		"payable": false,
