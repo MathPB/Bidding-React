@@ -1,13 +1,28 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:500&display=swap');
+
+.preg{
+  font-family: 'Roboto', sans-serif;
+}
+
+.prop{
+  font-family: 'Roboto', sans-serif;
+}
+
 .App {
   text-align: center;
+  font-family: 'Roboto', sans-serif;
 }
 
 .App-logo {
   height: 40vmin;
 }
 
+.btn-enter{
+  width: px;
+}
+
 .App-header {
-  background-color: #282c34;
+  background-color: #505050;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -19,4 +34,40 @@
 
 .App-link {
   color: #09d3ac;
+}
+
+.btn-enter{
+  background-color: #22DF00;
+  color: #ffffff;
+  border-radius: 8px;
+  border: 0;
+  font-size: 20px;
+  width: 200px;
+}
+.label-name{
+  font-size: 18px;
+}
+
+.input-name{
+  border-radius: 8px;
+  border: 0;
+}
+
+.label-prop{
+  font-size: 18px;
+}
+
+.input-prop{
+  border-radius: 8px;
+  border: 0;
+
+}
+
+.btn-vencedor{
+  background-color: #000BF9;
+  color: #ffffff;
+  border-radius: 8px;
+  border: 0;
+  font-size: 20px;
+  width: 200px;
 }

@@ -2,6 +2,11 @@ import React, {Component} from 'react';
 import './App.css';
 import web3 from './web3';
 import bidding from './bidding';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+
 
 class App extends Component {
   state = {
@@ -9,7 +14,7 @@ class App extends Component {
     organName: '',
     message: '',
     value:'',
-    nodeName:'',
+    id:'',
     getProvider: [],
     minimum:'',
     endereco:'',
@@ -42,6 +47,8 @@ class App extends Component {
     await bidding.methods.lowestOffer().send({ from: accounts[0], gas: '1000000' });
 
     this.setState({ message: 'Trasação aprovada!' });
+
+    window.location.reload();
   };
 
   onClick = async () =>{
@@ -49,56 +56,71 @@ class App extends Component {
 
     this.setState({ message: 'Aguardando a aprovação da transação...' }); 
 
-    await bidding.methods.addrWinner().send({ from: accounts[0] });
-
-    this.setState({ message: 'Trasação aprovada!' });
-
-    this.setState({ message: 'Aguardando a aprovação da transação...' }); 
-
     await bidding.methods.nameWinner().send({ from: accounts[0] });
 
     this.setState({ message: 'Trasação aprovada!' });
+
+    window.location.reload();
   }
 
   render(){   
   return (
-    <div>
-        console.log({this.state.nodeName});
-      <h2>Pregão Eletrônico</h2>
-      <p>Orgão licitante: <b>{this.state.nameOrgan}</b></p>
-      <p>Representado pelo endereço: <b>"{this.state.organ}"</b></p>
-      <p>Participantes: <b>{this.state.getProvider.length}</b></p>
-      <p>Menor proposta:{this.state.minimum}</p>
-      <hr/>
+    <div className="App App-header">
+      <h2 className="preg">Pregão Eletrônico</h2>
+      <br/>
+      <br/>
+      <Container>
+        <Row>
+          <Col>
+            <p><b>Orgão licitante:</b> {this.state.nameOrgan}</p>
+            {/* <p><b>Representado pelo endereço: </b><font face size="2">{this.state.organ}</font></p> */}
+          </Col>
+          <Col>
+            <p><b>Participantes:</b> {this.state.getProvider.length}</p>
+            
+          </Col>
+          <Col>
+            <p><b>Menor proposta:</b> {this.state.minimum}</p>
+          </Col>
+        </Row>
+      </Container>
       <form onSubmit={this.onSubmit}>
-        <h2>Proposta</h2>
-        <div>
-          <label>Nome fantasia:</label>
-          <br/>
-          <input
-            id = {this.state.id}
-            onChange={event => this.setState({ id : event.target.id})}
-          />
-        </div>
-        <div>
-          <br/>
-          <label>Valor da proposta:</label>
-          <br/>
-          <input
-            value = {this.state.value}
-            onChange={event => this.setState({ value: event.target.value })}
-          />
-        </div>
+        <br/>
+        <h2 className="prop">Proposta</h2>
+        <br/>
+        <Container>
+        <Row>
+          <Col>
+          <div>
+            <label className="label-name">Nome fantasia</label>
+            <br/>
+            <input className="input-name"
+              id = {this.state.value}
+              onChange={event => this.setState({ id : event.target.value})}
+            />
+            </div>
+            <br/>
+          </Col>
+          <Col>
+            <div>
+            <label className="label-prop">Valor da proposta</label>
+            <br/>
+            <input className='input-prop'
+              value = {this.state.value}
+              onChange={event => this.setState({ value: event.target.value })}
+            />
+            </div>
+          </Col>
+        </Row>
+      </Container>
         <br/> 
-        <button bsStyle="primary">Enter</button>
+        <button className="btn-enter">Entrar</button>
       </form>
       <hr/>
-      <h2>Encerrar o leilão</h2>
-      <button onClick={this.onClick}>Vencedor</button>
+      <button className="btn-vencedor" onClick={this.onClick}>Vencedor</button>
       <br/>
       <b>{this.state.vencedor}</b>
       <br/>
-      <b>{this.state.endereco}</b>
       <h1>{this.state.message}</h1>
     </div>
   );
