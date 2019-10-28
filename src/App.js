@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import './App.css';
 import web3 from './web3';
+import ipfs from './ipfs';
 import bidding from './bidding';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-
 
 class App extends Component {
   state = {
@@ -19,7 +19,11 @@ class App extends Component {
     minimum:'',
     endereco:'',
     vencedor:'',
-
+    ipfsHash:null,
+    buffer:'',
+    ethAddress:'',
+    transactionHash:'',
+    txReceipt: ''
   };
 
   async componentDidMount(){
@@ -37,6 +41,12 @@ class App extends Component {
     event.preventDefault();
 
     const accounts = await web3.eth.getAccounts();
+      
+    await ipfs.add(this.state.buffer, (err, ipfsHash) => {        
+      console.log(err,ipfsHash);        //setState by setting ipfsHash to ipfsHash[0].hash        
+      this.setState({ ipfsHash:ipfsHash[0].hash });        // call Ethereum contract method "sendHash" and .send IPFS hash to etheruem contract        //return the transaction hash from the ethereum contract        
+      bidding.methods.sendFile(this.state.ipfsHash).send({ from: accounts[0]});        
+    });   
 
     this.setState({ message: 'Aguardando a aprovação da transação...' });
 
@@ -63,6 +73,33 @@ class App extends Component {
     window.location.reload();
   }
 
+  //Take file input from user
+  captureFile =(event) => {        
+    event.stopPropagation()        
+    event.preventDefault()        
+    const file = event.target.files[0]        
+    let reader = new window.FileReader()        
+    reader.readAsArrayBuffer(file)        
+    reader.onloadend = () => this.convertToBuffer(reader)      
+  };
+
+  //Convert the file to buffer to store on IPFS 
+  convertToBuffer = async(reader) => {      //file is converted to a buffer for upload to IPFS        
+    const buffer = await Buffer.from(reader.result);      //set this buffer-using es6 syntax        
+    this.setState({buffer});    
+  };
+
+  // onSubmit = async (event) => {
+  //   event.preventDefault();
+  //   const accounts = await web3.eth.getAccounts();    //obtain contract address from storehash.js          
+  //   await ipfs.add(this.state.buffer, (err, ipfsHash) => {        
+  //     console.log(err,ipfsHash);        //setState by setting ipfsHash to ipfsHash[0].hash        
+  //     this.setState({ ipfsHash:ipfsHash[0].hash });        // call Ethereum contract method "sendHash" and .send IPFS hash to etheruem contract        //return the transaction hash from the ethereum contract        
+  //     bidding.methods.sendFile(this.state.ipfsHash).send({ from: accounts[0]});        
+  //   });      
+  // };   
+
+
   render(){   
   return (
     <div className="App App-header">
@@ -85,6 +122,10 @@ class App extends Component {
         </Row>
       </Container>
       <form onSubmit={this.onSubmit}>
+      <h2 className="prop">Insira a documentação</h2>  
+        <br/>         
+        <input type = "file" onChange = {this.captureFile} />
+        <br/>
         <br/>
         <h2 className="prop">Proposta</h2>
         <br/>
@@ -114,7 +155,7 @@ class App extends Component {
         </Row>
       </Container>
         <br/> 
-        <button className="btn-enter">Entrar</button>
+        <button className="btn-enter" type="submit">Entrar</button>
       </form>
       <hr/>
       <button className="btn-vencedor" onClick={this.onClick}>Vencedor</button>

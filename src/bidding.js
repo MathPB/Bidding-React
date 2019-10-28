@@ -1,6 +1,6 @@
 import web3 from './web3';
 
-const address = '0xC4dF3ff2Bd57B3D70a2286fE22f8bf69716e55C0';
+const address = '0x65dc079797CDb838eC20DB6d818FD095474b9d5A';
 
 const abi = [
 	{
@@ -136,6 +136,20 @@ const abi = [
 	},
 	{
 		"constant": false,
+		"inputs": [
+			{
+				"name": "f",
+				"type": "string"
+			}
+		],
+		"name": "sendFile",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
 		"inputs": [],
 		"name": "nameWinner",
 		"outputs": [
@@ -146,6 +160,20 @@ const abi = [
 		],
 		"payable": false,
 		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "file",
+		"outputs": [
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
